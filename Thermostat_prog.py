@@ -1,4 +1,5 @@
 #Thermostat prog
+import datetime
 class Thermostat:
     #this should contain the current everyday status situation.
     #Can be set to work, home, vacation.
@@ -9,10 +10,10 @@ class Thermostat:
     #and timing for night and day from weekdays compared to weekends.
  
     def __init__(self):
-        self.NightThermo = 15
-        self.DayThermo = 21
-        self.workThermo = 15
-        self.vacationThermo = 15
+        self.nightTemp = 15
+        self.dayTemp = 21
+        self.workTemp = 15
+        self.awayTemp = 15
 
         
     def printStatus(self):
@@ -20,9 +21,35 @@ class Thermostat:
         return
     def returnStatus(self):
         return("hei")
+    def setNightTemp(self, temp):
+        self.nightTemp = temp
+        return
+    def getNightTemp(self):
+        return(self.nightTemp)
+    
+    def setDayTemp(self, temp):
+        self.dayTemp = temp
+        return
+    def getDayTemp(self):
+        return(self.dayTemp)
+    
+    def setWorkTemp(self, temp):
+        self.workTemp = temp
+        return
+    def getWorkTemp(self):
+        return(self.workTemp)
+
+    def setWorkTemp(self, temp):
+        self.awayTemp = temp
+        return
+    def getWorkTemp(self):
+        return(self.awayTemp)
     
 thermostat = Thermostat()
-print(thermostat.DayThermo)
+print(thermostat.dayTemp)
 thermostat.printStatus()
+thermostat.setNightTemp(16)
+print(thermostat.getNightTemp())
+print(datetime.datetime.today())
     #function: Need set and get functions for all thermostats 
     
