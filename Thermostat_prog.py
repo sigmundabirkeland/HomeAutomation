@@ -1,6 +1,11 @@
 #Thermostat prog
 import datetime
-class Thermostat:
+class Timing:
+    def __init__(self):
+        self.startTime = 0
+        self.endTime = 0
+        self.daysActive [0,0,0,0,0,0,0]
+class Temp:
     #this should contain the current everyday status situation.
     #Can be set to work, home, vacation.
     #Typical week; work from 0800 to 1500 on weekdays
@@ -10,46 +15,20 @@ class Thermostat:
     #and timing for night and day from weekdays compared to weekends.
  
     def __init__(self):
-        self.nightTemp = 15
-        self.dayTemp = 21
-        self.workTemp = 15
-        self.awayTemp = 15
+        self.temp = 15
+    def setTemp(self, temp):
+        self.temp = temp
+        return
+    def getTemp(self):
+        return(self.temp)
+    
+    def printTemp(self):
+        print(self.temp)
+        return 
+    
+nightTemp = Temp()
+nightTemp.printTemp()
 
-        
-    def printStatus(self):
-        print("hei")
-        return
-    def returnStatus(self):
-        return("hei")
-    def setNightTemp(self, temp):
-        self.nightTemp = temp
-        return
-    def getNightTemp(self):
-        return(self.nightTemp)
-    
-    def setDayTemp(self, temp):
-        self.dayTemp = temp
-        return
-    def getDayTemp(self):
-        return(self.dayTemp)
-    
-    def setWorkTemp(self, temp):
-        self.workTemp = temp
-        return
-    def getWorkTemp(self):
-        return(self.workTemp)
-
-    def setWorkTemp(self, temp):
-        self.awayTemp = temp
-        return
-    def getWorkTemp(self):
-        return(self.awayTemp)
-    
-thermostat = Thermostat()
-print(thermostat.dayTemp)
-thermostat.printStatus()
-thermostat.setNightTemp(16)
-print(thermostat.getNightTemp())
 print(datetime.datetime.today())
     #function: Need set and get functions for all thermostats 
     
