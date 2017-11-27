@@ -1,10 +1,61 @@
 #Thermostat prog
 import datetime
 class Timing:
-    def __init__(self):
-        self.startTime = 0
-        self.endTime = 0
-        self.daysActive [0,0,0,0,0,0,0]
+    def __init__(self,name):
+        self.name=name
+        self.startTime = [22, 22, 22, 22, 24, 24, 22]
+        self.endTime = [5.5, 5.5, 5.5, 5.5, 5.5, 9, 9]
+        self.onDays = [1,1,1,1,1,1,1]
+        self.offDays = [1,1,1,1,1,1,1]
+        self.temperature = 15
+    def setStartTime(self,onDays,startTime):
+        self.onDays = onDays
+        for i in range(0,6):
+            if self.onDays[i] == 1:
+                self.startTime = startTime
+        return
+    def setEndTime(self,offDays,endTime):
+        self.offDays = offDays
+        for i in range(0,7):
+            if self.onDays[i] == 1:
+                self.endTime = endTime
+        return
+    def checkMode(current):
+    #Method to check current Mode. First I will test for NightMode
+    #Current consist of day and time
+        test = 1
+        return
+        
+    def printTiming(self):
+        print(self.name,"thermostat is set to: ", self.temperature)
+        print("Weekday:\t","Mon","\t", "Tue","\t","Wed","\t","Thu","\t","Fri","\t","Sat","\t","Sun")
+        print("Active :",end="\t")
+        for i in range(0,7):
+            if self.onDays[i] == 1:
+                print("On",end="\t")
+            else:
+                print("off",end="\t")
+        print("")
+        print("Start  :",end="\t")
+        for i in range(0,7):
+            if self.onDays[i] == 1:
+                print(self.startTime[i],end="\t")
+            else:
+                print("-",end="\t")
+        print("")
+        print("End    :",end="\t")
+        for i in range(0,7):
+            if self.onDays[i] == 1:
+                print(self.endTime[i],end="\t")
+            else:
+                print("-",end="\t")
+        return
+            
+            
+        
+        
+        
+        
 class Temp:
     #this should contain the current everyday status situation.
     #Can be set to work, home, vacation.
@@ -13,22 +64,34 @@ class Temp:
     #to 0700 on the following monday.
     #Additionally there must be a difference between night and day,
     #and timing for night and day from weekdays compared to weekends.
- 
+    
     def __init__(self):
-        self.temp = 15
-    def setTemp(self, temp):
+        self.thermoTemp = 20
+    def __init__(self,temp):
+        self.thermoTemp = temp
+    def setThermoTemp(self, temp):
         self.temp = temp
         return
-    def getTemp(self):
-        return(self.temp)
+    def getThermoTemp(self):
+        return(self.thermoTemp)
     
     def printTemp(self):
-        print(self.temp)
-        return 
-    
-nightTemp = Temp()
-nightTemp.printTemp()
+        print("The thermostat temperature is set to ", self.thermoTemp, "C")
+        return
 
-print(datetime.datetime.today())
+#Global Function
+def getSensorTemperature():
+    #Call to get temperature from sensor
+    return(10*rand())
+
+    
+nightTemp = Temp(15)
+nightTemp.printTemp()
+nightTiming = Timing("Night")
+nightTiming.printTiming()
+
+
+
+#print(datetime.datetime.today())
     #function: Need set and get functions for all thermostats 
     
