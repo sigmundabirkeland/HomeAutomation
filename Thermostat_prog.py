@@ -64,11 +64,14 @@ class Temp:
     #to 0700 on the following monday.
     #Additionally there must be a difference between night and day,
     #and timing for night and day from weekdays compared to weekends.
-    
-    def __init__(self):
-        self.thermoTemp = 20
+    #def __init__(self):
+    #   self.thermoTemp = 21
+    #    self.nightTiming = Timing("Night")
+    timing = Timing("Night")
     def __init__(self,temp):
         self.thermoTemp = temp
+        self.nightTiming = Timing("Night")
+        return
     def setThermoTemp(self, temp):
         self.temp = temp
         return
@@ -78,17 +81,19 @@ class Temp:
     def printTemp(self):
         print("The thermostat temperature is set to ", self.thermoTemp, "C")
         return
-
+    def getStatus(self):
+        #function to fetch status
+        return
 #Global Function
 def getSensorTemperature():
     #Call to get temperature from sensor
     return(10*rand())
 
     
-nightTemp = Temp(15)
-nightTemp.printTemp()
-nightTiming = Timing("Night")
-nightTiming.printTiming()
+temp = Temp(15)
+temp.nightTiming.printTiming()#nightTemp.printTemp()
+#nightTiming = Timing("Night")
+#nightTiming.printTiming()
 
 
 
