@@ -104,9 +104,6 @@ start_delay = 0.00275
 NUM_ATTEMPTS = 5
 TRANSMIT_PIN = 23
 #end of init
-weekday = time.strftime("%w")
-time_H = time.strftime("%H")
-time_M = time.strftime("%M")
 
 normal = 22
 night = 16
@@ -115,7 +112,7 @@ home = True
 
 with open("living_room_temp.csv", "a") as log:
 while True:
-	temp = read_temp()
+    temp = read_temp()
     if getMode() == 0:
         thermo = normal
         print("normal mode. Thermo = ", thermo, "Temp = ", temp)
