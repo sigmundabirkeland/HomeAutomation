@@ -55,7 +55,29 @@ def transmit_code(code):
         GPIO.output(TRANSMIT_PIN, 0)
         time.sleep(long_delay)
     GPIO.cleanup()
-
+def getMode():
+    weekday = time.strftime("%w")
+    hour = time.strftime("%H")
+    if weekday > 0 & weekday < 5:
+        if hour > 22 | hour < 6:
+            return(1)
+        else:
+            return(0)
+    if weekday == 5:
+        if hour > 23 | hour < 6:
+            return(1)
+        else:
+            return(0)
+    if weekday == 6:
+        if hour > 23 | hour < 8:
+            return(1)
+        else:
+            return(0)
+    if weekday == 0:
+        if hour > 22 | hour < 8:
+            return(1)
+        else:
+            return(0)
 init()
 temp_sensor = '/sys/bus/w1/devices/28-0115827775ff/w1_slave'
 #Send rf signal initialization
@@ -78,14 +100,26 @@ weekday = time.strftime("%w")
 time_H = time.strftime("%H")
 time_M = time.strftime("%M")
 
-thermostat = 22
+normal = 22
+night = 16
+work = 16
+
 
 print("day = ", weekday)
 while True:
     print(read_temp())
-    if read_temp() > thermostat + 0.25:
+    if getMode() == 0:
+        thermo = normal
+        print("normal mode")
+    elif getMode() == 1:
+        thermo = night
+        print("night mode")
+    else:
+        thermo = work
+        print("work mode")
+    if read_temp() > thermo + 0.25:
         transmit_code(a_off)
-    elif read_temp() < thermostat - 0.25:
+    elif read_temp() < thermo - 0.25:
         transmit_code(a_on)
     time.sleep(10)
 
