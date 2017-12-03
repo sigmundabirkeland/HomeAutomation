@@ -56,25 +56,25 @@ def transmit_code(code):
         time.sleep(long_delay)
     GPIO.cleanup()
 def getMode():
-    weekday = time.strftime("%w")
-    hour = time.strftime("%H")
-    if weekday > 0 & weekday < 5:
-        if hour > 22 | hour < 6:
+    weekday = int(time.strftime("%w"))
+    hour = float(time.strftime("%H"))
+    if weekday > 0 and weekday < 5:
+        if hour > 22 or hour < 6:
             return(1)
         else:
             return(0)
     if weekday == 5:
-        if hour > 23 | hour < 6:
+        if hour > 23 or hour < 6:
             return(1)
         else:
             return(0)
     if weekday == 6:
-        if hour > 23 | hour < 8:
+        if hour > 23 or hour < 8:
             return(1)
         else:
             return(0)
     if weekday == 0:
-        if hour > 22 | hour < 8:
+        if hour > 22 or hour < 8:
             return(1)
         else:
             return(0)
