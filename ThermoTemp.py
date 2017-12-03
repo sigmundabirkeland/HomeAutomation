@@ -124,16 +124,15 @@ with open("living_room_temp.csv", "a") as log:
             print("work mode. Thermo = ", thermo, "Temp = ", temp)
         if temp > thermo + 0.25:
             transmit_code(a_off)
-            log.write("{0},{1},{2}\n".format(strftime("%Y-%m-%d %H:%M:%S"),str(temp),"off"))
+            log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"off"))
         if temp < thermo - 0.25:
             transmit_code(a_on)
-            log.write("{0},{1},{2}\n".format(strftime("%Y-%m-%d %H:%M:%S"),str(temp),"on"))
+            log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"on"))
         else:
-            log.write("{0},{1},{2}\n".format(strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanched"))
-        GPIO.cleanup()
+            log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
         time.sleep(300)
 #end program cleanly
-except KeyboardInterrupt:
-    GPIO.cleanup()
-    print "done"
+    except KeyboardInterrupt:
+        GPIO.cleanup()
+        print "done"
 
