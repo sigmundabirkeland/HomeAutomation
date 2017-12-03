@@ -111,7 +111,7 @@ work = 16
 home = True
 
 with open("living_room_temp.csv", "a") as log:
-    while True:
+    try:
         temp = read_temp()
         if getMode() == 0:
             thermo = normal
