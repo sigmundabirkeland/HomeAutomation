@@ -4,7 +4,7 @@ import time
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
-temp_sensor = ‘sys/bus/w1/devices/28-0115827775ff/w1_slave’
+temp_sensor = '/sys/bus/w1/devices/28-0115827775ff/w1_slave'
 
 def temp_raw():
 
@@ -28,4 +28,4 @@ def read_temp():
 
 while True:
     print(read_temp())
-    time.sleep(1)
+    time.sleep(10)
