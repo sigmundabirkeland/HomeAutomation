@@ -115,7 +115,7 @@ home = True
 
 with open("living_room_temp.csv", "a") as log:
 while True:
-    temp = read_temp()
+	temp = read_temp()
     if getMode() == 0:
         thermo = normal
         print("normal mode. Thermo = ", thermo, "Temp = ", temp)
@@ -133,10 +133,8 @@ while True:
         log.write("{0},{1},{2}\n".format(strftime("%Y-%m-%d %H:%M:%S"),str(temp),"on"))
     else:
         log.write("{0},{1},{2}\n".format(strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanched"))
-        
     GPIO.cleanup()
     time.sleep(300)
-    
 #end program cleanly
 except KeyboardInterrupt:
     GPIO.cleanup()
