@@ -9,7 +9,6 @@ def init():
     #Temperature sensor initialization
     os.system('modprobe w1-gpio')
     os.system('modprobe w1-therm')
-    
 
 def temp_raw():
 
@@ -75,7 +74,9 @@ start_delay = 0.00275
 NUM_ATTEMPTS = 5
 TRANSMIT_PIN = 23
 #end of init
-weekday = time.strftime("%a")
+weekday = time.strftime("%w")
+time_H = time.strftime("%H")
+time_M = time.strftime("%M")
 
 thermostat = 22
 
@@ -87,4 +88,4 @@ while True:
     elif read_temp() < thermostat - 0.25:
         transmit_code(a_on)
     time.sleep(10)
-    
+
