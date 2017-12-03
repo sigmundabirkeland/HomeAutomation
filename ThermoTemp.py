@@ -77,14 +77,14 @@ TRANSMIT_PIN = 23
 #end of init
 weekday = time.strftime("%a")
 
-
+thermostat = 22
 
 print("day = ", weekday)
 while True:
     print(read_temp())
-    if read_temp() > 21:
+    if read_temp() > thermostat + 0.25:
         transmit_code(a_off)
-    elif read_temp() < 21:
+    elif read_temp() < thermostat - 0.25:
         transmit_code(a_on)
     time.sleep(10)
     
