@@ -61,11 +61,19 @@ def getMode():
     if weekday > 0 and weekday < 5:
         if hour > 22 or hour < 6:
             return(1)
+        if home == True:
+            return(0)
+        if hour > 9 and hour < 14:
+            return(2)
         else:
             return(0)
     if weekday == 5:
         if hour > 23 or hour < 6:
             return(1)
+        if home == True:
+            return(0)
+        if hour > 9 and hour < 14:
+            return(2)
         else:
             return(0)
     if weekday == 6:
@@ -103,20 +111,20 @@ time_M = time.strftime("%M")
 normal = 22
 night = 16
 work = 16
-
+home = False
 
 print("day = ", weekday)
 while True:
-    print(read_temp())
+    
     if getMode() == 0:
         thermo = normal
-        print("normal mode")
+        print("normal mode. Thermo = ", thermo, "Temp = ", read_temp())
     elif getMode() == 1:
         thermo = night
-        print("night mode")
+        print("night mode. Thermo = ", thermo, "Temp = ", read_temp())
     else:
         thermo = work
-        print("work mode")
+        print("work mode. Thermo = ", thermo, "Temp = ", read_temp())
     if read_temp() > thermo + 0.25:
         transmit_code(a_off)
     elif read_temp() < thermo - 0.25:
