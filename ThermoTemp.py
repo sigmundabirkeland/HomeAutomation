@@ -24,7 +24,7 @@ def init():
     start_delay = 0.00275
     NUM_ATTEMPTS = 5
     TRANSMIT_PIN = 23
-    
+
 def temp_raw():
 
     f = open(temp_sensor, 'r')
@@ -49,7 +49,6 @@ def transmit_code(code):
     '''Transmit a chosen code string using the GPIO transmitter'''
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(TRANSMIT_PIN, GPIO.OUT)
-    #TODO must set up start signal
     for t in range(NUM_ATTEMPTS):
         GPIO.output(TRANSMIT_PIN,1)
         time.sleep(high_delay)
@@ -77,7 +76,7 @@ while True:
     print(read_temp())
     if read_temp() > 21:
         transmit_code(a_off)
-    else if read_temp() < 21:
+    elif read_temp() < 21:
         transmit_code(a_on)
     time.sleep(10)
     
