@@ -1,5 +1,6 @@
 import os
 import time
+import datetime
 import sys
 import RPi.GPIO as GPIO
 
@@ -74,6 +75,11 @@ start_delay = 0.00275
 NUM_ATTEMPTS = 5
 TRANSMIT_PIN = 23
 #end of init
+weekday = time.strftime("%a")
+
+
+
+print("day = ", weekday)
 while True:
     print(read_temp())
     if read_temp() > 21:
