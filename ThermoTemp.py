@@ -110,29 +110,30 @@ night = 16
 work = 16
 home = True
 
-with open("living_room_temp.csv", "a") as log:
-    while True:
-        temp = read_temp()
-        if getMode() == 0:
-            thermo = normal
-            print("normal mode. Thermo = ", thermo, "Temp = ", temp)
-        elif getMode() == 1:
-            thermo = night
-            print("night mode. Thermo = ", thermo, "Temp = ", temp)
-        else:
-            thermo = work
-            print("work mode. Thermo = ", thermo, "Temp = ", temp)
-        if temp > thermo + 0.25:
-            transmit_code(a_off)
-            log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"off"))
-        if temp < thermo - 0.25:
-            transmit_code(a_on)
-            log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"on"))
-        else:
-            log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
-        time.sleep(300)
+try:
+    with open("living_room_temp.csv", "a") as log:
+        while True:
+            temp = read_temp()
+            if getMode() == 0:
+                thermo = normal
+                print("normal mode. Thermo = ", thermo, "Temp = ", temp)
+            elif getMode() == 1:
+                thermo = night
+                print("night mode. Thermo = ", thermo, "Temp = ", temp)
+            else:
+                thermo = work
+                print("work mode. Thermo = ", thermo, "Temp = ", temp)
+            if temp > thermo + 0.25:
+                transmit_code(a_off)
+                log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"off"))
+            if temp < thermo - 0.25:
+                transmit_code(a_on)
+                log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"on"))
+            else:
+                log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
+            time.sleep(300)
 #end program cleanly
-#    except KeyboardInterrupt:
-#        GPIO.cleanup()
-#        print "done"
+    except KeyboardInterrupt:
+        GPIO.cleanup()
+        print "done"
 
