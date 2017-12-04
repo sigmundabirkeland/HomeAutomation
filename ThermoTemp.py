@@ -105,7 +105,7 @@ NUM_ATTEMPTS = 5
 TRANSMIT_PIN = 23
 #end of init
 
-normal = 23
+normal = 22
 night = 16
 work = 16
 home = True
@@ -136,7 +136,7 @@ try:
 	    else:
 		#print("Thermostat unchanged, temp= ", temp)
                 log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
-            time.sleep(10)
+            time.sleep(60)
 #end program cleanly
 except KeyboardInterrupt:
     #GPIO.cleanup()
