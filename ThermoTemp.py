@@ -133,7 +133,7 @@ try:
                 log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
             time.sleep(300)
 #end program cleanly
-    except KeyboardInterrupt:
-        GPIO.cleanup()
-        print "done"
+except KeyboardInterrupt:
+    GPIO.cleanup()
+    print "done"
 
