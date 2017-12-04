@@ -111,7 +111,7 @@ work = 16
 home = True
 
 with open("living_room_temp.csv", "a") as log:
-    try:
+    while True:
         temp = read_temp()
         if getMode() == 0:
             thermo = normal
@@ -132,7 +132,7 @@ with open("living_room_temp.csv", "a") as log:
             log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
         time.sleep(300)
 #end program cleanly
-    except KeyboardInterrupt:
-        GPIO.cleanup()
-        print "done"
+#    except KeyboardInterrupt:
+#        GPIO.cleanup()
+#        print "done"
 
