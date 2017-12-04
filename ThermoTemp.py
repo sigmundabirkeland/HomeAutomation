@@ -116,20 +116,25 @@ try:
             temp = read_temp()
             if getMode() == 0:
                 thermo = normal
-                print("normal mode. Thermo = ", thermo, "Temp = ", temp)
+                #print("normal mode. Thermo = ", thermo, "Temp = ", temp)
             elif getMode() == 1:
                 thermo = night
-                print("night mode. Thermo = ", thermo, "Temp = ", temp)
+                #print("night mode. Thermo = ", thermo, "Temp = ", temp)
             else:
                 thermo = work
-                print("work mode. Thermo = ", thermo, "Temp = ", temp)
+                #print("work mode. Thermo = ", thermo, "Temp = ", temp)
             if temp > thermo + 0.25:
                 transmit_code(a_off)
+		transmit_code(c_off)
+		print("Thermostat off, temp = ",temp)
                 log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"off"))
             if temp < thermo - 0.25:
                 transmit_code(a_on)
+		transmit_code(c_on)
                 log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"on"))
-            else:
+            	print("Thermostat on, temp = ",temp)
+	    else:
+		print("Thermostat unchanged, temp= ", temp)
                 log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
             time.sleep(300)
 #end program cleanly
