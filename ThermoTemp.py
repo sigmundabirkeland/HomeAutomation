@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import os
 import time
 import datetime
@@ -108,35 +109,48 @@ TRANSMIT_PIN = 23
 normal = 22
 night = 16
 work = 16
+status = 0
 home = True
 
 try:
-    with open("living_room_temp.csv", "a") as log:
-        while True:
+    while True:
+    	with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
             temp = read_temp()
             if getMode() == 0:
                 thermo = normal
-                #print("normal mode. Thermo = ", thermo, "Temp = ", temp)
+		#print("normal mode. Thermo = ", thermo, "Temp = ", temp)
             elif getMode() == 1:
                 thermo = night
                 #print("night mode. Thermo = ", thermo, "Temp = ", temp)
             else:
                 thermo = work
                 #print("work mode. Thermo = ", thermo, "Temp = ", temp)
-            if temp > thermo + 0.25:
+            if temp > thermo + 0.025:
                 transmit_code(a_off)
 		transmit_code(c_off)
 		#print("Thermostat off, temp = ",temp)
-                log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"off"))
-            if temp < thermo - 0.25:
+                if status == 1:
+		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
+            	    status = 0
+		else:
+		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
+		
+	    elif temp < thermo - 0.025:
                 transmit_code(a_on)
 		transmit_code(c_on)
-                log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"on"))
-            	#print("Thermostat on, temp = ",temp)
+                if status == 0:
+		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
+		    status = 1
+		else:
+		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))            	
+		#print("Thermostat on, temp = ",temp)
 	    else:
 		#print("Thermostat unchanged, temp= ", temp)
-                log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"unchanged"))
-            time.sleep(60)
+		if status == 1:
+		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
+		else:
+		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
+	time.sleep(60)
 #end program cleanly
 except KeyboardInterrupt:
     #GPIO.cleanup()
