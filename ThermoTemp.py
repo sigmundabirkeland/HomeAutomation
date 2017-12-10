@@ -4,6 +4,8 @@ import time
 import datetime
 import sys
 import RPi.GPIO as GPIO
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 def init():
@@ -88,17 +90,17 @@ def getMode():
         else:
             return(0)
 
-def graph(temp,dateChanged):
-    if dateChanged == 1
-	dateChanged = 0
+def plotGraph(temp,dateChanged,status):
+    if dateChanged == 1:
 	plt.clf()
 	plt.scatter(x,y)
 	plt.plot(x,y)
-	
-	x.clear()
-	y.clear()
+	plt.title('Daily Temperature Change')
+	fig.savefig('DayTemp.png')
+	x[:] = []
+	y[:] = []
 	reset_time = time.time()
-   	
+   	dateChanged = 0
     y.append(temp)
     x.append(time.time()-reset_time)
     
@@ -133,8 +135,9 @@ normal = 21
 night = 16
 work = 16
 status = 0
-home = False
-
+home = True
+reset_time = time.time()
+date = datetime.datetime.now().day
 try:
     while True:
     	with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
@@ -173,6 +176,10 @@ try:
 		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
 		else:
 		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
+            if datetime.datetime.now().day != date:
+                    dateChanged = True
+                    date = datetime.datetime.now().day
+	    plotGraph(temp,dateChanged,status)
 	time.sleep(300)
 #end program cleanly
 except KeyboardInterrupt:
