@@ -4,7 +4,7 @@ import time
 import datetime
 import sys
 import RPi.GPIO as GPIO
-
+import matplotlib.pyplot as plt
 
 def init():
     #Temperature sensor initialization
@@ -87,6 +87,26 @@ def getMode():
             return(1)
         else:
             return(0)
+
+def graph(temp,dateChanged):
+    if dateChanged == 1
+	dateChanged = 0
+	plt.clf()
+	plt.scatter(x,y)
+	plt.plot(x,y)
+	
+	x.clear()
+	y.clear()
+	reset_time = time.time()
+   	
+    y.append(temp)
+    x.append(time.time()-reset_time)
+    
+    
+    	
+
+
+
 init()
 temp_sensor = '/sys/bus/w1/devices/28-0115827775ff/w1_slave'
 #Send rf signal initialization
@@ -105,6 +125,9 @@ start_delay = 0.00275
 NUM_ATTEMPTS = 5
 TRANSMIT_PIN = 23
 #end of init
+
+x = []
+y = []
 
 normal = 21
 night = 16
