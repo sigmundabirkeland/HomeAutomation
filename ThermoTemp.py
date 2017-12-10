@@ -106,11 +106,11 @@ NUM_ATTEMPTS = 5
 TRANSMIT_PIN = 23
 #end of init
 
-normal = 22
+normal = 21
 night = 16
 work = 16
 status = 0
-home = True
+home = False
 
 try:
     while True:
@@ -125,7 +125,7 @@ try:
             else:
                 thermo = work
                 #print("work mode. Thermo = ", thermo, "Temp = ", temp)
-            if temp > thermo + 0.025:
+            if temp > thermo + 0.25:
                 transmit_code(a_off)
 		transmit_code(c_off)
 		#print("Thermostat off, temp = ",temp)
@@ -135,7 +135,7 @@ try:
 		else:
 		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
 		
-	    elif temp < thermo - 0.025:
+	    elif temp < thermo - 0.25:
                 transmit_code(a_on)
 		transmit_code(c_on)
                 if status == 0:
@@ -150,7 +150,7 @@ try:
 		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
 		else:
 		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
-	time.sleep(60)
+	time.sleep(300)
 #end program cleanly
 except KeyboardInterrupt:
     #GPIO.cleanup()
