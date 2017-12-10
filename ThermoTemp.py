@@ -90,7 +90,7 @@ def getMode():
         else:
             return(0)
 
-def plotGraph(temp,dateChanged,status):
+def plotGraph(temp,dateChanged,status,reset_time):
     if dateChanged == 1:
 	plt.clf()
 	plt.scatter(x,y)
@@ -102,11 +102,7 @@ def plotGraph(temp,dateChanged,status):
 	reset_time = time.time()
    	dateChanged = 0
     y.append(temp)
-    x.append(time.time()-reset_time)
-    
-    
-    	
-
+    x.append(time.time() - reset_time)
 
 
 init()
@@ -136,8 +132,10 @@ night = 16
 work = 16
 status = 0
 home = True
-reset_time = time.time()
 date = datetime.datetime.now().day
+dateChanged = 0
+reset_time = time.time()
+
 try:
     while True:
     	with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
@@ -179,7 +177,7 @@ try:
             if datetime.datetime.now().day != date:
                     dateChanged = True
                     date = datetime.datetime.now().day
-	    plotGraph(temp,dateChanged,status)
+	    plotGraph(temp,dateChanged,status,reset_time)
 	time.sleep(300)
 #end program cleanly
 except KeyboardInterrupt:
