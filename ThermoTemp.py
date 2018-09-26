@@ -105,7 +105,11 @@ def plotGraph(temp,dateChanged,status,reset_time):
     #y.append(temp)
     #x.append(time.time() - reset_time)
 
-
+class Display
+    def __init__(self):
+        self.mode = "init"
+        self.status = "init"
+    
 init()
 temp_sensor = '/sys/bus/w1/devices/28-0115827775ff/w1_slave'
 #Send rf signal initialization
@@ -130,41 +134,41 @@ TRANSMIT_PIN = 23
 x = []
 y = []
 
+
+
 normal = 22
 night = 16
 work = 16
 status = 0
-home = True
+home = False
 date = datetime.datetime.now().day
 dateChanged = 0
 reset_time = time.time()
-thermo = 0
-
+thermo = normal
+myDisplay = Display()
 try:
     while True:
     	with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
             temp = read_temp()
-	    mylcd.lcd_clear()
-	    mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
-	    mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
-	    if getMode() == 0:
+            mode = getMode()
+	    if mode == 0:
                 thermo = normal
-		#mylcd.lcd_clear()
-		#mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
-		mylcd.lcd_display_string("Normal mode",4)
-            elif getMode() == 1:
+                myDisplay.mode = "Normal mode"
+		#mylcd.lcd_display_string("Normal mode",4)
+            elif mode == 1:
                 thermo = night
-                mylcd.lcd_display_string("Night mode",4)
+                myDisplay.mode = "Night mode"
+                #mylcd.lcd_display_string("Night mode",4)
 		#print("night mode. Thermo = ", thermo, "Temp = ", temp)
             else:
                 thermo = work
-		mylcd.lcd_display_string("Work mode",4)
+                myDisplay.mode = "Work mode"
+		#mylcd.lcd_display_string("Work mode",4)
                 #print("work mode. Thermo = ", thermo, "Temp = ", temp)
             if temp > thermo + 0.25:
                 transmit_code(a_off)
 		transmit_code(c_off)
-		mylcd.lcd_display_string("Status: Off",3)
-		#print("Thermostat off, temp = ",temp)
+                myDisplay.status = "Status: Off"
                 if status == 1:
 		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
             	    status = 0
@@ -173,7 +177,7 @@ try:
 	    elif temp < thermo - 0.25:
                 transmit_code(a_on)
 		transmit_code(c_on)
-		mylcd.lcd_display_string("Status: On",3)
+		myDisplay.status = "Status: On"
                 if status == 0:
 		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
 		    status = 1
@@ -190,6 +194,11 @@ try:
                     dateChanged = True
                     date = datetime.datetime.now().day
 	    plotGraph(temp,dateChanged,status,reset_time)
+            mylcd.lcd_clear()
+	    mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
+	    mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
+            mylcd.lcd_display_string(myDisplay.status,3)
+            mylcd.lcd_display_string(myDisplay.mode,4)
 	time.sleep(30)
 #end program cleanly
 except KeyboardInterrupt:
