@@ -105,7 +105,7 @@ def plotGraph(temp,dateChanged,status,reset_time):
     #y.append(temp)
     #x.append(time.time() - reset_time)
 
-class Display
+class Display:
     def __init__(self):
         self.mode = "init"
         self.status = "init"
@@ -136,7 +136,7 @@ y = []
 
 
 
-normal = 22
+normal = 23
 night = 16
 work = 16
 status = 0
