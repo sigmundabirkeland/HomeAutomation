@@ -9,6 +9,24 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import I2C_LCD_driver
 
+
+GPIO.setwarnings(False) # Ignore waring for now
+GPIO.setmode(GPIO.BOARD) # Use physical numbering
+GPIO.setup(11, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 11 to an input and that init$
+
+GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback) # Setup event on pi$
+
+
+def button_mode_callback(channel):
+	home = not home
+	print("button pushed")
+	if home:
+		print("home")
+		mylcd.lcd_display_string("Home mode activated",4)
+	else:
+		mylcd.lcd_display_string("Home mode deactivated",4)
+
+
 def init():
     #Temperature sensor initialization
     os.system('modprobe w1-gpio')
@@ -35,7 +53,7 @@ def read_temp():
 
 def transmit_code(code):
     '''Transmit a chosen code string using the GPIO transmitter'''
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(TRANSMIT_PIN, GPIO.OUT)
     for t in range(NUM_ATTEMPTS):
         GPIO.output(TRANSMIT_PIN,1)
@@ -102,14 +120,13 @@ def plotGraph(temp,dateChanged,status,reset_time):
 	y[:] = []
 	reset_time = time.time()
    	dateChanged = 0
-    #y.append(temp)
-    #x.append(time.time() - reset_time)
+    	#y.append(temp)
+    	#x.append(time.time() - reset_time)
 
 class Display:
     def __init__(self):
         self.mode = "init"
         self.status = "init"
-    
 init()
 temp_sensor = '/sys/bus/w1/devices/28-0115827775ff/w1_slave'
 #Send rf signal initialization
@@ -128,7 +145,8 @@ zero_delay = 0.001
 long_delay = 0.01
 start_delay = 0.00275
 NUM_ATTEMPTS = 5
-TRANSMIT_PIN = 23
+TRANSMIT_PIN = 16
+push_button_pin = 11
 #end of init
 
 x = []
@@ -136,11 +154,11 @@ y = []
 
 
 
-normal = 23
+normal = 22
 night = 16
 work = 16
 status = 0
-home = True
+home = False
 date = datetime.datetime.now().day
 dateChanged = 0
 reset_time = time.time()
@@ -148,61 +166,65 @@ thermo = normal
 myDisplay = Display()
 try:
     while True:
-    	with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
-            temp = read_temp()
-            mode = getMode()
-	    if mode == 0:
-                thermo = normal
-                myDisplay.mode = "Normal mode"
-		#mylcd.lcd_display_string("Normal mode",4)
-            elif mode == 1:
-                thermo = night
-                myDisplay.mode = "Night mode"
-                #mylcd.lcd_display_string("Night mode",4)
-		#print("night mode. Thermo = ", thermo, "Temp = ", temp)
-            else:
-                thermo = work
-                myDisplay.mode = "Work mode"
-		#mylcd.lcd_display_string("Work mode",4)
-                #print("work mode. Thermo = ", thermo, "Temp = ", temp)
-            if temp > thermo + 0.25:
-                transmit_code(a_off)
-		transmit_code(c_off)
-                myDisplay.status = "Status: Off"
-                if status == 1:
-		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
-            	    status = 0
-		else:
-		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
-	    elif temp < thermo - 0.25:
-                transmit_code(a_on)
-		transmit_code(c_on)
-		myDisplay.status = "Status: On"
-                if status == 0:
-		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
-		    status = 1
-		else:
-		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
+    	#with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
+        temp = read_temp()
+        mode = getMode()
+	if mode == 0:
+            thermo = normal
+            myDisplay.mode = "Normal mode"
+	    #mylcd.lcd_display_string("Normal mode",4)
+        elif mode == 1:
+            thermo = night
+            myDisplay.mode = "Night mode"
+            #mylcd.lcd_display_string("Night mode",4)
+	    #print("night mode. Thermo = ", thermo, "Temp = ", temp)
+        else:
+            thermo = work
+            myDisplay.mode = "Work mode"
+	    #mylcd.lcd_display_string("Work mode",4)
+            #print("work mode. Thermo = ", thermo, "Temp = ", temp)
+        if temp > thermo + 0.25:
+            transmit_code(a_off)
+	    transmit_code(c_off)
+            myDisplay.status = "Status: Off"
+            if status == 1:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
+		#%H:%M:%S"),str(temp),"0"))
+            	status = 0
+	    #else:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
+		#%H:%M:%S"),str(temp),"0"))
+	elif temp < thermo - 0.25:
+            transmit_code(a_on)
+	    transmit_code(c_on)
+	    myDisplay.status = "Status: On"
+            if status == 0:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
+		#%H:%M:%S"),str(temp),"1"))
+		status = 1
+	    #else:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
 		#print("Thermostat on, temp = ",temp)
-	    else:
-		#print("Thermostat unchanged, temp= ", temp)
-		if status == 1:
-		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
-		else:
-		    log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
-            if datetime.datetime.now().day != date:
-                    dateChanged = True
-                    date = datetime.datetime.now().day
-	    plotGraph(temp,dateChanged,status,reset_time)
-            mylcd.lcd_clear()
-	    mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
-	    mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
-            mylcd.lcd_display_string(myDisplay.status,3)
-            mylcd.lcd_display_string(myDisplay.mode,4)
-	time.sleep(30)
+	#else:
+	    #print("Thermostat unchanged, temp= ", temp)
+	    #if status == 1:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
+	    #else:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
+        if datetime.datetime.now().day != date:
+            dateChanged = True
+            date = datetime.datetime.now().day
+	    #plotGraph(temp,dateChanged,status,reset_time)
+        mylcd.lcd_clear()
+	mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
+	mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
+        mylcd.lcd_display_string(myDisplay.status,3)
+        mylcd.lcd_display_string(myDisplay.mode,4)
+    	time.sleep(300)
+
 #end program cleanly
 except KeyboardInterrupt:
-    #GPIO.cleanup()
+    GPIO.cleanup()
     mylcd.lcd_clear()
     print "done"
 
