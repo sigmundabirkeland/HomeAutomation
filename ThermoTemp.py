@@ -169,6 +169,7 @@ try:
     	#with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
         temp = read_temp()
         mode = getMode()
+        print("Temperature ", temp)
 	if mode == 0:
             thermo = normal
             myDisplay.mode = "Normal mode"
