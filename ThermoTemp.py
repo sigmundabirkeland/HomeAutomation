@@ -154,7 +154,7 @@ y = []
 
 
 
-normal = 22
+normal = 16
 night = 16
 work = 16
 status = 0
