@@ -159,6 +159,7 @@ night = 16
 work = 16
 status = 0
 home = False
+#away = False
 date = datetime.datetime.now().day
 dateChanged = 0
 reset_time = time.time()
@@ -217,6 +218,7 @@ try:
             dateChanged = True
             date = datetime.datetime.now().day
 	    #plotGraph(temp,dateChanged,status,reset_time)
+        print("Status: ", status)
         mylcd.lcd_clear()
 	mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
 	mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
