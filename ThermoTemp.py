@@ -14,7 +14,7 @@ GPIO.setwarnings(False) # Ignore waring for now
 GPIO.setmode(GPIO.BOARD) # Use physical numbering
 GPIO.setup(11, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 11 to an input and that init$
 
-GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback) # Setup event on pi$
+
 
 
 def button_mode_callback(channel):
@@ -164,6 +164,7 @@ dateChanged = 0
 reset_time = time.time()
 thermo = normal
 myDisplay = Display()
+GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback) # Setup event on pi$
 try:
     while True:
     	#with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
