@@ -47,11 +47,11 @@ def transmit_code(code):
 if __name__ == '__main__':
     for argument in sys.argv[1:]:
         exec('transmit_code(' + str(argument) + ')')
-#counter = 0
+counter = 0
 
-#while (counter < 10):
-#	transmit_code(a_on)
-#	time.sleep(2)
-#	transmit_code(a_off)
-#	counter = counter + 1
-#	time.sleep(2)
+while (counter < 4):
+	transmit_code(a_off)
+	time.sleep(2)
+	transmit_code(c_off)
+	counter = counter + 1
+	time.sleep(2)

@@ -154,7 +154,7 @@ y = []
 
 
 
-normal = 16
+normal = 22
 night = 16
 work = 16
 status = 0
@@ -171,7 +171,7 @@ try:
     	#with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
         temp = read_temp()
         mode = getMode()
-        print("Temperature ", temp)
+        #print("Temperature ", temp)
 	if mode == 0:
             thermo = normal
             myDisplay.mode = "Normal mode"
@@ -224,7 +224,7 @@ try:
 	mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
         mylcd.lcd_display_string(myDisplay.status,3)
         mylcd.lcd_display_string(myDisplay.mode,4)
-    	time.sleep(5)
+    	time.sleep(300)
 
 #end program cleanly
 except KeyboardInterrupt:
