@@ -20,13 +20,13 @@ GPIO.setup(11, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 11 to an input a
 def button_mode_callback(channel):
     global home
     home = not home
-    print("button pushed")
+    #print("button pushed")
     if home:
-        print("home")
-	mylcd.lcd_display_string("Home mode activated",4)
+        #print("home")
+	mylcd.lcd_display_string("Work",4)
     else:
-	print("away")
-    	mylcd.lcd_display_string("Home mode deactivated",4)
+	#print("away")
+    	mylcd.lcd_display_string("Home",4)
 
 
 
@@ -78,7 +78,7 @@ def transmit_code(code):
                 continue
         GPIO.output(TRANSMIT_PIN, 0)
         time.sleep(long_delay)
-    GPIO.cleanup()
+    #GPIO.cleanup()
 def getMode():
     weekday = int(time.strftime("%w"))
     hour = float(time.strftime("%H"))
