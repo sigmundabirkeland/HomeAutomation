@@ -182,11 +182,11 @@ try:
             myDisplay.mode = "Night mode"
             #mylcd.lcd_display_string("Night mode",4)
 	    #print("night mode. Thermo = ", thermo, "Temp = ", temp)
-##        else:
-##            thermo = work
-##            myDisplay.mode = "Work mode"
-##	    #mylcd.lcd_display_string("Work mode",4)
-##            #print("work mode. Thermo = ", thermo, "Temp = ", temp)
+        else:
+            thermo = work
+            myDisplay.mode = "Work mode"
+	    #mylcd.lcd_display_string("Work mode",4)
+            #print("work mode. Thermo = ", thermo, "Temp = ", temp)
 ##        if temp > thermo + 0.25:
 ##            transmit_code(a_off)
 ##	    transmit_code(c_off)
