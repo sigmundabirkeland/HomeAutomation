@@ -187,10 +187,10 @@ try:
             myDisplay.mode = "Work mode"
 	    #mylcd.lcd_display_string("Work mode",4)
             #print("work mode. Thermo = ", thermo, "Temp = ", temp)
-##        if temp > thermo + 0.25:
-##            transmit_code(a_off)
-##	    transmit_code(c_off)
-##            myDisplay.status = "Status: Off"
+        if temp > thermo + 0.25:
+            transmit_code(a_off)
+	    transmit_code(c_off)
+            myDisplay.status = "Status: Off"
 ##            if status == 1:
 ##		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
 ##		#%H:%M:%S"),str(temp),"0"))
