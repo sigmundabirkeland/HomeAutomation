@@ -22,7 +22,7 @@ def button_mode_callback(channel):
     home = not home
     print("button pushed")
     if home:
-        print("home")
+        #print("home")
 	mylcd.lcd_display_string("Home mode activated",4)
     else:
     	mylcd.lcd_display_string("Home mode deactivated",4)

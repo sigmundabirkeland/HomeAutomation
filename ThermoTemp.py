@@ -18,13 +18,15 @@ GPIO.setup(11, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 11 to an input a
 
 
 def button_mode_callback(channel):
-	home = not home
-	print("button pushed")
-	if home:
-		print("home")
-		mylcd.lcd_display_string("Home mode activated",4)
-	else:
-		mylcd.lcd_display_string("Home mode deactivated",4)
+    global home
+    home = not home
+    print("button pushed")
+    if home:
+        #print("home")
+	mylcd.lcd_display_string("Home mode activated",4)
+    else:
+    	mylcd.lcd_display_string("Home mode deactivated",4)
+
 
 
 def init():
