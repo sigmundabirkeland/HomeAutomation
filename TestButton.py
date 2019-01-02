@@ -172,6 +172,53 @@ try:
     	print("program is running")
     	temp = read_temp()
         mode = getMode()
+
+        if mode == 0:
+            thermo = normal
+            myDisplay.mode = "Normal mode"
+	    #mylcd.lcd_display_string("Normal mode",4)
+        elif mode == 1:
+            thermo = night
+            myDisplay.mode = "Night mode"
+            #mylcd.lcd_display_string("Night mode",4)
+	    #print("night mode. Thermo = ", thermo, "Temp = ", temp)
+        else:
+            thermo = work
+            myDisplay.mode = "Work mode"
+	    #mylcd.lcd_display_string("Work mode",4)
+            #print("work mode. Thermo = ", thermo, "Temp = ", temp)
+        if temp > thermo + 0.25:
+            transmit_code(a_off)
+	    transmit_code(c_off)
+            myDisplay.status = "Status: Off"
+            if status == 1:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
+		#%H:%M:%S"),str(temp),"0"))
+            	status = 0
+	    #else:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
+		#%H:%M:%S"),str(temp),"0"))
+	elif temp < thermo - 0.25:
+            transmit_code(a_on)
+	    transmit_code(c_on)
+	    myDisplay.status = "Status: On"
+            if status == 0:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
+		#%H:%M:%S"),str(temp),"1"))
+		status = 1
+	    #else:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
+		#print("Thermostat on, temp = ",temp)
+	#else:
+	    #print("Thermostat unchanged, temp= ", temp)
+	    #if status == 1:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"1"))
+	    #else:
+		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(temp),"0"))
+        if datetime.datetime.now().day != date:
+            dateChanged = True
+            date = datetime.datetime.now().day
+            
     	mylcd.lcd_clear()
 	mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
 	mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
