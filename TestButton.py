@@ -224,7 +224,7 @@ try:
 	mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
         mylcd.lcd_display_string(myDisplay.status,3)
         mylcd.lcd_display_string(myDisplay.mode,4)
-    	time.sleep(300)
+    	time.sleep(10)
 
 #end program cleanly
 except KeyboardInterrupt:
