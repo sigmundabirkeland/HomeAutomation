@@ -190,7 +190,7 @@ try:
         if temp > thermo + 0.25:
             transmit_code(a_off)
 	    transmit_code(c_off)
-            myDisplay.status = "Status: Off"
+##            myDisplay.status = "Status: Off"
 ##            if status == 1:
 ##		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
 ##		#%H:%M:%S"),str(temp),"0"))
