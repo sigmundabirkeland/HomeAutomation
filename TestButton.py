@@ -22,11 +22,11 @@ def button_mode_callback(channel):
     home = not home
     print("button pushed")
     if home:
-        #print("home")
+        print("home")
 	mylcd.lcd_display_string("Home mode activated",4)
     else:
     	mylcd.lcd_display_string("Home mode deactivated",4)
-
+	print("away")
 
 def init():
     #Temperature sensor initialization
@@ -169,7 +169,7 @@ myDisplay = Display()
 GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback) # Setup event on pi$
 try:
     while True:
-    	
+    	print("program is running")
     	time.sleep(300)
 
 #end program cleanly
