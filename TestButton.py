@@ -188,6 +188,7 @@ try:
 	    #mylcd.lcd_display_string("Work mode",4)
             #print("work mode. Thermo = ", thermo, "Temp = ", temp)
         if temp > thermo + 0.25:
+            print("is in the if statement")
 ##            transmit_code(a_off)
 ##  	      transmit_code(c_off)
 ##            myDisplay.status = "Status: Off"
