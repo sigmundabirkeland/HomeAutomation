@@ -170,6 +170,8 @@ GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback) # Setup 
 try:
     while True:
     	print("program is running")
+    	temp = read_temp()
+        mode = getMode()
     	mylcd.lcd_clear()
 	mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
 	mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
