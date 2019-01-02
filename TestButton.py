@@ -177,11 +177,11 @@ try:
             thermo = normal
             myDisplay.mode = "Normal mode"
 	    #mylcd.lcd_display_string("Normal mode",4)
-##        elif mode == 1:
-##            thermo = night
-##            myDisplay.mode = "Night mode"
-##            #mylcd.lcd_display_string("Night mode",4)
-##	    #print("night mode. Thermo = ", thermo, "Temp = ", temp)
+        elif mode == 1:
+            thermo = night
+            myDisplay.mode = "Night mode"
+            #mylcd.lcd_display_string("Night mode",4)
+	    #print("night mode. Thermo = ", thermo, "Temp = ", temp)
 ##        else:
 ##            thermo = work
 ##            myDisplay.mode = "Work mode"
