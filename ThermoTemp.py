@@ -19,7 +19,7 @@ GPIO.setup(15, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 15 to an input a
 
 
 
-def button_mode_callback1(channel):
+def button_mode_callback_mode(channel):
     global home
     home = not home
     #print("button pushed")
@@ -30,27 +30,37 @@ def button_mode_callback1(channel):
 	#print("away")
     	mylcd.lcd_display_string("Work Mode     ",4)
 
-def button_mode_callback2(channel):
+def button_mode_callback_temp_up(channel):
     global high
-    print("button 2 pushed")
-##    if home:
-##        #print("home")
-##	mylcd.lcd_display_string("Home Mode     ",4)
-##    else:
-##	#print("away")
-##    	mylcd.lcd_display_string("Work Mode     ",4)
+    global low
+    #print("button 2 pushed")
+    mode = getMode()
+    if mode == 0:
+        high += 1
+        mylcd.lcd_display_string("Target: %d%sC" % (high, chr(223)),2)
+    elif mode == 1:
+        low += 1
+        mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
+    else:
+        low += 1
+        mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
+    
 
-def button_mode_callback3(channel):
-    global home
-    home = not home
-    print("button 3 pushed")
-##    if home:
-##        #print("home")
-##	mylcd.lcd_display_string("Home Mode     ",4)
-##    else:
-##	#print("away")
-##    	mylcd.lcd_display_string("Work Mode     ",4)
-##
+
+def button_mode_callback_temp_down(channel):
+    global high
+    global low
+    #print("button 3 pushed")
+    mode = getMode()
+    if mode == 0:
+        high -= 1
+        mylcd.lcd_display_string("Target: %d%sC" % (high, chr(223)),2)
+    elif mode == 1:
+        low -= 1
+        mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
+    else:
+        low -= 1
+        mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
 
 
 def init():
