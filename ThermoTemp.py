@@ -140,6 +140,15 @@ class Display:
     def __init__(self):
         self.mode = "init"
         self.status = "init"
+
+
+global a_on
+global a_off
+global b_on
+global b_off
+global c_on
+global c_off
+
 init()
 temp_sensor = '/sys/bus/w1/devices/28-0115827775ff/w1_slave'
 #Send rf signal initialization
