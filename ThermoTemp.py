@@ -13,21 +13,44 @@ import I2C_LCD_driver
 GPIO.setwarnings(False) # Ignore waring for now
 GPIO.setmode(GPIO.BOARD) # Use physical numbering
 GPIO.setup(11, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 11 to an input and that init$
+GPIO.setup(13, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 13 to an input and that init$
+GPIO.setup(15, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 15 to an input and that init$
 
 
 
 
-def button_mode_callback(channel):
+def button_mode_callback1(channel):
     global home
     home = not home
     #print("button pushed")
     if home:
         #print("home")
-	mylcd.lcd_display_string("Home Mode",4)
+	mylcd.lcd_display_string("Home Mode     ",4)
     else:
 	#print("away")
-    	mylcd.lcd_display_string("Work Mode",4)
+    	mylcd.lcd_display_string("Work Mode     ",4)
 
+def button_mode_callback2(channel):
+    global high
+    print("button 2 pushed")
+##    if home:
+##        #print("home")
+##	mylcd.lcd_display_string("Home Mode     ",4)
+##    else:
+##	#print("away")
+##    	mylcd.lcd_display_string("Work Mode     ",4)
+
+def button_mode_callback3(channel):
+    global home
+    home = not home
+    print("button 3 pushed")
+##    if home:
+##        #print("home")
+##	mylcd.lcd_display_string("Home Mode     ",4)
+##    else:
+##	#print("away")
+##    	mylcd.lcd_display_string("Work Mode     ",4)
+##
 
 
 def init():
@@ -170,7 +193,11 @@ dateChanged = 0
 reset_time = time.time()
 thermo = normal
 myDisplay = Display()
-GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback) # Setup event on pi$
+GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback1) # Setup event on pi$
+GPIO.add_event_detect(13, GPIO.RISING, callback = button_mode_callback2) # Setup event on pi$
+GPIO.add_event_detect(15, GPIO.RISING, callback = button_mode_callback3) # Setup event on pi$
+
+
 try:
     while True:
     	#with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
