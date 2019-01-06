@@ -34,6 +34,16 @@ def init():
     #Temperature sensor initialization
     os.system('modprobe w1-gpio')
     os.system('modprobe w1-therm')
+
+
+
+    global a_on =  '10011001101010100110101001011001100101100101010101101001101010101'
+    global a_off = '10011001101010100110101001011001100101100101010101101010101010101'
+    global b_on =  '10011001101010100110101001011001100101100101010101101001101010011'
+    global b_off = '10011001101010100110101001011001100101100101010101101010101010011'
+    global c_on =  '10011001101010100110101001011001100101100101010101101001101001101'
+    global c_off = '10011001101010100110101001011001100101100101010101101010101001101'
+
 def temp_raw():
 
     f = open(temp_sensor, 'r')
@@ -133,12 +143,6 @@ class Display:
 init()
 temp_sensor = '/sys/bus/w1/devices/28-0115827775ff/w1_slave'
 #Send rf signal initialization
-a_on =  '10011001101010100110101001011001100101100101010101101001101010101'
-a_off = '10011001101010100110101001011001100101100101010101101010101010101'
-b_on =  '10011001101010100110101001011001100101100101010101101001101010011'
-b_off = '10011001101010100110101001011001100101100101010101101010101010011'
-c_on =  '10011001101010100110101001011001100101100101010101101001101001101'
-c_off = '10011001101010100110101001011001100101100101010101101010101001101'
 
 mylcd = I2C_LCD_driver.lcd()
 
@@ -157,9 +161,11 @@ y = []
 
 
 
-normal = 22
-night = 16
-work = 16
+high = 22
+low = 16
+normal = high
+night = low
+work = low
 status = 0
 home = False
 #away = False
@@ -192,7 +198,7 @@ try:
         if temp > thermo + 0.25:
             transmit_code(a_off)
 	    transmit_code(c_off)
-            myDisplay.status = "Status: Off"
+            myDisplay.status = "Power off"
             if status == 1:
 		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
 		#%H:%M:%S"),str(temp),"0"))
@@ -203,7 +209,7 @@ try:
 	elif temp < thermo - 0.25:
             transmit_code(a_on)
 	    transmit_code(c_on)
-	    myDisplay.status = "Status: On"
+	    myDisplay.status = "Power on"
             if status == 0:
 		#log.write("{0},{1},{2}\n".format(time.strftime("%Y-%m-%d 
 		#%H:%M:%S"),str(temp),"1"))
