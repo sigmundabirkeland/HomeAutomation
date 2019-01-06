@@ -31,35 +31,49 @@ def button_mode_callback_mode(channel):
     	mylcd.lcd_display_string("Work Mode     ",4)
 
 def button_mode_callback_temp_up(channel):
-    global high
-    global low
+    global high, low, normal, thermo, night
     #print("button 2 pushed")
     mode = getMode()
     if mode == 0:
         high += 1
+        normal = high
+        thermo = high
         mylcd.lcd_display_string("Target: %d%sC" % (high, chr(223)),2)
     elif mode == 1:
         low += 1
+        night = low
+        work = low
+        thermo = low
         mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
     else:
         low += 1
+        night = low
+        work = low
+        thermo = low
         mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
     
 
 
 def button_mode_callback_temp_down(channel):
-    global high
-    global low
+    global high, low, normal, thermo, night
     #print("button 3 pushed")
     mode = getMode()
     if mode == 0:
         high -= 1
+        normal = high
+        thermo = high
         mylcd.lcd_display_string("Target: %d%sC" % (high, chr(223)),2)
     elif mode == 1:
         low -= 1
+        night = low
+        work = low
+        thermo = low
         mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
     else:
         low -= 1
+        night = low
+        work = low
+        thermo = low
         mylcd.lcd_display_string("Target: %d%sC" % (low, chr(223)),2)
 
 
