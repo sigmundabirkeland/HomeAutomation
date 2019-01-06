@@ -193,9 +193,9 @@ dateChanged = 0
 reset_time = time.time()
 thermo = normal
 myDisplay = Display()
-GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback1, bouncetime=150) # Setup event on pi$
-GPIO.add_event_detect(13, GPIO.RISING, callback = button_mode_callback2, bouncetime=150) # Setup event on pi$
-GPIO.add_event_detect(15, GPIO.RISING, callback = button_mode_callback3, bouncetime=150) # Setup event on pi$
+GPIO.add_event_detect(11, GPIO.RISING, callback = button_mode_callback1, bouncetime=250) # Setup event on pi$
+GPIO.add_event_detect(13, GPIO.RISING, callback = button_mode_callback2, bouncetime=250) # Setup event on pi$
+GPIO.add_event_detect(15, GPIO.RISING, callback = button_mode_callback3, bouncetime=250) # Setup event on pi$
 
 
 try:
