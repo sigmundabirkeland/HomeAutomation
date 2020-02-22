@@ -12,9 +12,9 @@ import I2C_LCD_driver
 
 GPIO.setwarnings(False) # Ignore waring for now
 GPIO.setmode(GPIO.BOARD) # Use physical numbering
-GPIO.setup(11, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 11 to an input and that init$
-GPIO.setup(13, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 13 to an input and that init$
-GPIO.setup(15, GPIO.IN, pull_up_down = GPIO.PUD_DOWN) # Set pin 15 to an input and that init$
+GPIO.setup(11, GPIO.IN, pull_up_down = GPIO.PUD_UP) # Set pin 11 to an input and that init$
+GPIO.setup(13, GPIO.IN, pull_up_down = GPIO.PUD_UP) # Set pin 13 to an input and that init$
+GPIO.setup(15, GPIO.IN, pull_up_down = GPIO.PUD_UP) # Set pin 15 to an input and that init$
 
 
 
