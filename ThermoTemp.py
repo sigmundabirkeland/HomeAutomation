@@ -130,11 +130,11 @@ def getMode():
     weekday = int(time.strftime("%w"))
     hour = float(time.strftime("%H"))
     if weekday > 0 and weekday < 5:
-        if hour >= 23 or hour < 6:
+        if hour >= 23 or hour < 7:
             return(1)
         if home == True:
             return(0)
-        if hour >= 9 and hour < 14:
+        if hour >=  and hour < 14:
             return(2)
         else:
             return(0)
@@ -143,7 +143,7 @@ def getMode():
             return(1)
         if home == True:
             return(0)
-        if hour >= 9 and hour < 14:
+        if hour >= 8 and hour < 14:
             return(2)
         else:
             return(0)
@@ -157,6 +157,8 @@ def getMode():
             return(1)
         else:
             return(0)
+def termostat():
+
 
 def plotGraph(temp,dateChanged,status,reset_time):
     dateChanged = 0
@@ -224,8 +226,7 @@ GPIO.add_event_detect(15, GPIO.RISING, callback = button_mode_callback_temp_down
 
 try:
     while True:
-    	#with open("/home/pi/HomeAutomation/living_room_temp.csv", "a") as log:
-        temp = read_temp()
+    	temp = read_temp()
         mode = getMode()
         #print("Temperature ", temp)
 	if mode == 0:
