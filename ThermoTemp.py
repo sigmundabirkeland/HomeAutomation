@@ -19,6 +19,7 @@ GPIO.setup(15, GPIO.IN, pull_up_down = GPIO.PUD_UP) # Set pin 15 to an input and
 
 
 
+
 def button_mode_callback_mode(channel):
     global home
     home = not home
@@ -275,7 +276,7 @@ try:
             dateChanged = True
             date = datetime.datetime.now().day
 	    #plotGraph(temp,dateChanged,status,reset_time)
-        print("Status: ", status)
+        #print("Status: ", status)
         mylcd.lcd_clear()
 	mylcd.lcd_display_string("Temp: %d%sC" % (temp, chr(223)),1)
 	mylcd.lcd_display_string("Target: %d%sC" % (thermo, chr(223)),2)
